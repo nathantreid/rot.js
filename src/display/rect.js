@@ -44,8 +44,9 @@ ROT.Display.Rect.prototype._drawWithCache = function(data, clearBefore) {
 	var ch = data[2];
 	var fg = data[3];
 	var bg = data[4];
+	var ov = data[5];
 
-	var hash = ""+ch+fg+bg;
+	var hash = ""+ch+fg+bg+ov;
 	if (hash in this._canvasCache) {
 		var canvas = this._canvasCache[hash];
 	} else {
@@ -68,6 +69,10 @@ ROT.Display.Rect.prototype._drawWithCache = function(data, clearBefore) {
 				ctx.fillText(chars[i], this._spacingX/2, Math.ceil(this._spacingY/2));
 			}
 		}
+        if (ov){
+            ctx.fillStyle = ov;
+            ctx.fillRect(b, b, canvas.width-b, canvas.height-b);
+        }
 		this._canvasCache[hash] = canvas;
 	}
 	
@@ -80,21 +85,28 @@ ROT.Display.Rect.prototype._drawNoCache = function(data, clearBefore) {
 	var ch = data[2];
 	var fg = data[3];
 	var bg = data[4];
+    var ov = data[5];
 
-	if (clearBefore) { 
+    if (clearBefore || ov)
 		var b = this._options.border;
+	if (clearBefore) {
 		this._context.fillStyle = bg;
 		this._context.fillRect(x*this._spacingX + b, y*this._spacingY + b, this._spacingX - b, this._spacingY - b);
 	}
-	
-	if (!ch) { return; }
 
-	this._context.fillStyle = fg;
+	if (ch) {
 
-	var chars = [].concat(ch);
-	for (var i=0;i<chars.length;i++) {
-		this._context.fillText(chars[i], (x+0.5) * this._spacingX, Math.ceil((y+0.5) * this._spacingY));
-	}
+        this._context.fillStyle = fg;
+
+        var chars = [].concat(ch);
+        for (var i = 0; i < chars.length; i++) {
+            this._context.fillText(chars[i], (x + 0.5) * this._spacingX, Math.ceil((y + 0.5) * this._spacingY));
+        }
+    }
+    if (ov){
+        ctx.fillStyle = ov;
+        ctx.fillRect(b, b, canvas.width-b, canvas.height-b);
+    }
 }
 
 ROT.Display.Rect.prototype.computeSize = function(availWidth, availHeight) {
