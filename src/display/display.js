@@ -162,11 +162,12 @@ ROT.Display.prototype.eventToPosition = function(e) {
  * @param {string || string[]} ch One or more chars (will be overlapping themselves)
  * @param {string} [fg] foreground color
  * @param {string} [bg] background color
+ * @param {string} [ov] overlay color
  */
-ROT.Display.prototype.draw = function(x, y, ch, fg, bg) {
+ROT.Display.prototype.draw = function(x, y, ch, fg, bg, ov) {
 	if (!fg) { fg = this._options.fg; }
 	if (!bg) { bg = this._options.bg; }
-	this._data[x+","+y] = [x, y, ch, fg, bg];
+	this._data[x+","+y] = [x, y, ch, fg, bg, ov];
 	
 	if (this._dirty === true) { return; } /* will already redraw everything */
 	if (!this._dirty) { this._dirty = {}; } /* first! */
