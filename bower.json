@@ -1,7 +1,7 @@
 {
 	"name": "rot.js",
 	"main": "rot.js",
-	"version": "0.5.0",
+	"version": "master",
 	"authors": [
 		"Ondrej Zara <ondrej.zara@gmail.com> (http://ondras.zarovi.cz/)"
 	],
@@ -20,6 +20,7 @@
 	"license": "BSD License",
 	"homepage": "http://ondras.github.io/rot.js/hp/",
 	"ignore": [
-		"*"
+		"*",
+        "!rot.min.js"
 	]
 }
