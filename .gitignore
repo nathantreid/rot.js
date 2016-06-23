@@ -1,6 +1,5 @@
 /coverage
-/lib
+/node-deploy
 /node_modules
-/package.json
 /test
 /.idea
